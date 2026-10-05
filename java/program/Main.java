@@ -173,10 +173,8 @@ public class Main {
         System.out.println(">>> " + judul + " <<<");
         ladang.tampilkanInfoLadang();
         System.out.println();
-        System.out.println("-- Daftar Tanaman (polimorfisme) --");
         ladang.tampilkanSemuaTanaman();
         System.out.println();
-        System.out.println("-- Daftar Alat --");
         ladang.tampilkanSemuaAlat();
     }
 
@@ -193,25 +191,7 @@ public class Main {
     }
 
     private static void animasiKeluar() {
-        System.out.print("\nMenutup program");
-        for (int i = 0; i < 3; i++) {
-            try { Thread.sleep(400); } catch (InterruptedException e) {}
-            System.out.print(".");
-            System.out.flush();
-        }
-        System.out.println("\n");
-        String[] banner = {
-            "#####  ####   ###      ####   ###  #   # #####",
-            "  #    #   # #   #     #   # #   # ##  # #    ",
-            "  #    ####     #      #   # #   # # # # #### ",
-            "  #    #       #       #   # #   # #  ## #    ",
-            "  #    #      ####     ####   ###  #   # #####"
-        };
-        for (String baris : banner) {
-            try { Thread.sleep(150); } catch (InterruptedException e) {}
-            System.out.println(baris);
-        }
-        System.out.println();
+        System.out.println("\nprogram selesai");
     }
 
     public static void main(String[] args) {

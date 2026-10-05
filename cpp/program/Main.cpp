@@ -191,9 +191,9 @@ void tambahAlat() {
 void tampilkanData(string judul) {
     cout << "\n>>> " << judul << " <<<" << endl;
     ladang.tampilkanInfoLadang();
-    cout << "\n-- Daftar Tanaman (polimorfisme) --" << endl;
+    cout << endl;
     ladang.tampilkanSemuaTanaman();
-    cout << "\n-- Daftar Alat --" << endl;
+    cout << endl;
     ladang.tampilkanSemuaAlat();
 }
 
@@ -209,24 +209,7 @@ void tampilkanMenu() {
 }
 
 void animasiKeluar() {
-    cout << "\nMenutup program";
-    for (int i = 0; i < 3; i++) {
-        this_thread::sleep_for(chrono::milliseconds(400));
-        cout << "." << flush;
-    }
-    cout << "\n\n";
-    vector<string> banner = {
-        "#####  ####   ###      ####   ###  #   # #####",
-        "  #    #   # #   #     #   # #   # ##  # #    ",
-        "  #    ####     #      #   # #   # # # # #### ",
-        "  #    #       #       #   # #   # #  ## #    ",
-        "  #    #      ####     ####   ###  #   # #####"
-    };
-    for (auto& baris : banner) {
-        this_thread::sleep_for(chrono::milliseconds(150));
-        cout << baris << endl;
-    }
-    cout << endl;
+    cout << "\nprogram selesai" << endl;
 }
 
 int main() {

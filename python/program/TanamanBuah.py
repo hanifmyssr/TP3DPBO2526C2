@@ -16,9 +16,23 @@ class TanamanBuah(Tanaman):
     def get_tinggi_pohon_m(self):
         return self._tinggi_pohon_m
 
+    # Setter untuk setiap atribut sendiri (+ setter warisan dari Tanaman)
+    def set_jenis_buah(self, jenis_buah):
+        self._jenis_buah = jenis_buah
+
+    def set_tinggi_pohon_m(self, tinggi_pohon_m):
+        self._tinggi_pohon_m = tinggi_pohon_m
+
     # Override: kategori spesifik
     def get_kategori(self):
         return "Tanaman Buah"
+
+    # Override: kolom tabel
+    def get_jenis(self):
+        return self._jenis_buah
+
+    def get_info_tambahan(self):
+        return f"Tinggi: {self._tinggi_pohon_m:g} m"
 
     # Override: cetak atribut induk + atribut sendiri (polimorfisme)
     def tampilkan_info(self):

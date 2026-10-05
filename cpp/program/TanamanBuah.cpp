@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <sstream>
 #include "Tanaman.cpp"
 using namespace std;
 
@@ -21,8 +22,19 @@ public:
     string getJenisBuah() { return jenisBuah; }
     double getTinggiPohonM() { return tinggiPohonM; }
 
+    // Setter untuk setiap atribut sendiri (+ setter warisan dari Tanaman)
+    void setJenisBuah(string jenis) { jenisBuah = jenis; }
+    void setTinggiPohonM(double tinggi) { tinggiPohonM = tinggi; }
+
     // Override: kategori spesifik
     string getKategori() override { return "Tanaman Buah"; }
+
+    // Override: kolom tabel
+    string getJenis() override { return jenisBuah; }
+    string getInfoTambahan() override {
+        ostringstream oss; oss << tinggiPohonM;
+        return "Tinggi: " + oss.str() + " m";
+    }
 
     // Override: cetak atribut induk + atribut sendiri (polimorfisme)
     void tampilkanInfo() override {

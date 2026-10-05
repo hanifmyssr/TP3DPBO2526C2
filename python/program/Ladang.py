@@ -33,6 +33,28 @@ class Ladang:
     def get_daftar_alat(self):
         return self._daftar_alat
 
+    # Setter untuk setiap atribut
+    def set_id_ladang(self, id_ladang):
+        self._id_ladang = id_ladang
+
+    def set_nama_ladang(self, nama_ladang):
+        self._nama_ladang = nama_ladang
+
+    def set_luas_total_m2(self, luas_total_m2):
+        self._luas_total_m2 = luas_total_m2
+
+    def set_lokasi(self, lokasi):
+        self._lokasi = lokasi
+
+    def set_pemilik(self, pemilik):
+        self._pemilik = pemilik
+
+    def set_daftar_tanaman(self, daftar_tanaman):
+        self._daftar_tanaman = daftar_tanaman
+
+    def set_daftar_alat(self, daftar_alat):
+        self._daftar_alat = daftar_alat
+
     # Cek duplikat ID tanaman / alat
     def id_tanaman_dipakai(self, id_tanaman):
         for t in self._daftar_tanaman:
@@ -53,24 +75,41 @@ class Ladang:
     def tambah_alat(self, alat):
         self._daftar_alat.append(alat)
 
-    # Loop daftarTanaman, panggil tampilkanInfo() tiap elemen
-    # (polimorfisme: otomatis versi override masing-masing jenis)
+    @staticmethod
+    def _fmt(x):
+        return f"{x:g}" if isinstance(x, float) else str(x)
+
+    @staticmethod
+    def _header_box():
+        w = 66
+        print("+" + "=" * w + "+")
+        print("|" + "MANAJEMEN LADANG SUKAMAJU".center(w) + "|")
+        print("|" + "Sistem Manajemen Ladang & Tanaman".center(w) + "|")
+        print("+" + "=" * w + "+")
+
+    # Gaya screenshot: daftar hierarki bernomor + tree (polimorfisme:
+    # get_kategori/get_jenis/get_info_tambahan otomatis versi override tiap jenis)
     def tampilkan_semua_tanaman(self):
+        print("[ DAFTAR TANAMAN ]")
         if not self._daftar_tanaman:
             print("  Belum ada tanaman.")
             return
         for i, t in enumerate(self._daftar_tanaman, 1):
-            print(f"  {i}. ", end="")
-            t.tampilkan_info()
+            print(f"  {i}. [{t.get_kategori()}] {t.get_nama()} ({t.get_id_tanaman()})")
+            umur = f"{t.hitung_umur_tanam_hari()} hr"
+            print(f"     Detail : Luas {self._fmt(t.get_luas_tanam_m2())} m2 | "
+                  f"Tanam {t.get_tanggal_tanam()} ({umur}) | "
+                  f"Jenis {t.get_jenis()} | {t.get_info_tambahan()}")
 
-    # Loop daftarAlat
+    # Gaya screenshot: daftar hierarki bernomor + tree
     def tampilkan_semua_alat(self):
+        print("[ DAFTAR ALAT ]")
         if not self._daftar_alat:
             print("  Belum ada alat.")
             return
         for i, a in enumerate(self._daftar_alat, 1):
-            print(f"  {i}. ", end="")
-            a.tampilkan_info_alat()
+            print(f"  {i}. {a.get_nama_alat()} ({a.get_id_alat()})")
+            print(f"     Detail : Kondisi {a.get_kondisi()} | Beli {a.get_tahun_beli()}")
 
     # Jumlahkan luasTanamM2 seluruh tanaman
     def hitung_total_luas_tertanam(self):
@@ -80,11 +119,23 @@ class Ladang:
     def hitung_sisa_luas_ladang(self):
         return self._luas_total_m2 - self.hitung_total_luas_tertanam()
 
-    # Cetak ladang + pemilik (delegasi ke pemilik.tampilkan_info_petani)
+    # Gaya screenshot: header box + bullet info (seperti [ INFORMASI BIMBEL ])
     def tampilkan_info_ladang(self):
-        print(f"Ladang {self._nama_ladang} ({self._id_ladang}) | Lokasi: {self._lokasi}")
-        print(f"Luas total: {self._luas_total_m2:g} m2 | Tertanam: {self.hitung_total_luas_tertanam():g} m2 | "
-              f"Sisa: {self.hitung_sisa_luas_ladang():g} m2")
+        self._header_box()
+        print()
+        print("[ INFORMASI LADANG ]")
+        print(f"  - ID Ladang   : {self._id_ladang}")
+        print(f"  - Nama Ladang : {self._nama_ladang}")
+        print(f"  - Lokasi      : {self._lokasi}")
+        print(f"  - Luas Total  : {self._fmt(self._luas_total_m2)} m2")
+        print(f"  - Tertanam    : {self._fmt(self.hitung_total_luas_tertanam())} m2")
+        print(f"  - Sisa        : {self._fmt(self.hitung_sisa_luas_ladang())} m2")
+        print(f"  - Isi         : {len(self._daftar_tanaman)} tanaman | {len(self._daftar_alat)} alat")
+        print()
         if self._pemilik is not None:
-            self._pemilik.tampilkan_info_petani()
-        print(f"Jumlah tanaman: {len(self._daftar_tanaman)} | Jumlah alat: {len(self._daftar_alat)}")
+            p = self._pemilik
+            print("[ INFORMASI PETANI ]")
+            print(f"  - ID Petani   : {p.get_id_petani()}")
+            print(f"  - Nama        : {p.get_nama()}")
+            print(f"  - Alamat      : {p.get_alamat()}")
+            print(f"  - Mulai       : {p.get_tahun_mulai_bertani()} ({p.get_pengalaman_tahun()} thn pengalaman)")

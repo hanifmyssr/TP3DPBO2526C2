@@ -21,8 +21,11 @@ public class AlatPertanian {
     public String getKondisi() { return kondisi; }
     public int getTahunBeli() { return tahunBeli; }
 
-    // Update status kondisi alat
+    // Setter untuk setiap atribut
+    public void setIdAlat(String id) { this.idAlat = id; }
+    public void setNamaAlat(String n) { this.namaAlat = n; }
     public void setKondisi(String baru) { this.kondisi = baru; }
+    public void setTahunBeli(int thn) { this.tahunBeli = thn; }
 
     // Cetak detail alat
     public void tampilkanInfoAlat() {

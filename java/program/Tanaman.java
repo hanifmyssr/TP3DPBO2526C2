@@ -27,6 +27,12 @@ public abstract class Tanaman {
     public double getLuasTanamM2() { return luasTanamM2; }
     public String getTanggalTanam() { return tanggalTanam; }
 
+    // Setter untuk setiap atribut
+    public void setIdTanaman(String id) { this.idTanaman = id; }
+    public void setNama(String n) { this.nama = n; }
+    public void setLuasTanamM2(double luas) { this.luasTanamM2 = luas; }
+    public void setTanggalTanam(String tgl) { this.tanggalTanam = tgl; }
+
     // Concrete (bukan abstract): hitung selisih hari dari tanggalTanam sampai sekarang
     // Dipakai sama persis oleh semua turunan
     public int hitungUmurTanamHari() {
@@ -42,6 +48,16 @@ public abstract class Tanaman {
 
     // Abstract: perilaku beda per turunan
     public abstract String getKategori();
+
+    // Abstract: untuk kolom tabel (Jenis + Detail spesifik per turunan)
+    public abstract String getJenis();
+    public abstract String getInfoTambahan();
+
+    // Helper format angka: hilangkan .0 bila bulat (untuk tabel)
+    public static String fmtAngka(double v) {
+        if (v == (long) v) return Long.toString((long) v);
+        return Double.toString(v);
+    }
 
     // Abstract: cetak atribut Tanaman + atribut spesifik turunan
     public abstract void tampilkanInfo();

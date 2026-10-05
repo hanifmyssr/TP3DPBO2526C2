@@ -13,15 +13,25 @@ public class TanamanBuah extends Tanaman {
     public String getJenisBuah() { return jenisBuah; }
     public double getTinggiPohonM() { return tinggiPohonM; }
 
+    // Setter untuk setiap atribut sendiri (+ setter warisan dari Tanaman)
+    public void setJenisBuah(String jenis) { this.jenisBuah = jenis; }
+    public void setTinggiPohonM(double tinggi) { this.tinggiPohonM = tinggi; }
+
     // Override: kategori spesifik
     @Override
     public String getKategori() { return "Tanaman Buah"; }
 
+    // Override: kolom tabel
+    @Override
+    public String getJenis() { return jenisBuah; }
+    @Override
+    public String getInfoTambahan() { return "Tinggi: " + Tanaman.fmtAngka(tinggiPohonM) + " m"; }
+
     // Override: cetak atribut induk + atribut sendiri (polimorfisme)
     @Override
     public void tampilkanInfo() {
-        String luasStr = (luasTanamM2 == (long) luasTanamM2) ? Long.toString((long) luasTanamM2) : Double.toString(luasTanamM2);
-        String tinggiStr = (tinggiPohonM == (long) tinggiPohonM) ? Long.toString((long) tinggiPohonM) : Double.toString(tinggiPohonM);
+        String luasStr = Tanaman.fmtAngka(luasTanamM2);
+        String tinggiStr = Tanaman.fmtAngka(tinggiPohonM);
         System.out.println("  [" + getKategori() + "] ID: " + idTanaman + " | Nama: " + nama
             + " | Luas: " + luasStr + " m2 | Tanam: " + tanggalTanam
             + " (" + hitungUmurTanamHari() + " hari) | Jenis: " + jenisBuah

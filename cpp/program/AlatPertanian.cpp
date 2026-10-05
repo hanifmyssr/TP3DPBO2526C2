@@ -24,8 +24,11 @@ public:
     string getKondisi() { return kondisi; }
     int getTahunBeli() { return tahunBeli; }
 
-    // Update status kondisi alat
+    // Setter untuk setiap atribut
+    void setIdAlat(string id) { idAlat = id; }
+    void setNamaAlat(string n) { namaAlat = n; }
     void setKondisi(string baru) { kondisi = baru; }
+    void setTahunBeli(int thn) { tahunBeli = thn; }
 
     // Cetak detail alat
     void tampilkanInfoAlat() {

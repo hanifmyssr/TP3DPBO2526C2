@@ -19,9 +19,18 @@ class AlatPertanian:
     def get_tahun_beli(self):
         return self._tahun_beli
 
-    # Update status kondisi alat
+    # Setter untuk setiap atribut
+    def set_id_alat(self, id_alat):
+        self._id_alat = id_alat
+
+    def set_nama_alat(self, nama_alat):
+        self._nama_alat = nama_alat
+
     def set_kondisi(self, baru):
         self._kondisi = baru
+
+    def set_tahun_beli(self, tahun_beli):
+        self._tahun_beli = tahun_beli
 
     # Cetak detail alat
     def tampilkan_info_alat(self):

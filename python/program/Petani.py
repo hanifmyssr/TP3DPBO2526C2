@@ -22,6 +22,19 @@ class Petani:
     def get_tahun_mulai_bertani(self):
         return self._tahun_mulai_bertani
 
+    # Setter untuk setiap atribut
+    def set_id_petani(self, id_petani):
+        self._id_petani = id_petani
+
+    def set_nama(self, nama):
+        self._nama = nama
+
+    def set_alamat(self, alamat):
+        self._alamat = alamat
+
+    def set_tahun_mulai_bertani(self, tahun_mulai_bertani):
+        self._tahun_mulai_bertani = tahun_mulai_bertani
+
     # Hitung tahun sekarang - tahunMulaiBertani
     def get_pengalaman_tahun(self):
         return date.today().year - self._tahun_mulai_bertani

@@ -25,6 +25,12 @@ public:
     string getAlamat() { return alamat; }
     int getTahunMulaiBertani() { return tahunMulaiBertani; }
 
+    // Setter untuk setiap atribut
+    void setIdPetani(string id) { idPetani = id; }
+    void setNama(string n) { nama = n; }
+    void setAlamat(string al) { alamat = al; }
+    void setTahunMulaiBertani(int thn) { tahunMulaiBertani = thn; }
+
     // Hitung tahun sekarang - tahunMulaiBertani
     int getPengalamanTahun() {
         time_t now = time(nullptr);

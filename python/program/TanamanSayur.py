@@ -16,9 +16,23 @@ class TanamanSayur(Tanaman):
     def get_masa_panen_hari(self):
         return self._masa_panen_hari
 
+    # Setter untuk setiap atribut sendiri (+ setter warisan dari Tanaman)
+    def set_jenis_sayur(self, jenis_sayur):
+        self._jenis_sayur = jenis_sayur
+
+    def set_masa_panen_hari(self, masa_panen_hari):
+        self._masa_panen_hari = masa_panen_hari
+
     # Override: kategori spesifik
     def get_kategori(self):
         return "Tanaman Sayur"
+
+    # Override: kolom tabel
+    def get_jenis(self):
+        return self._jenis_sayur
+
+    def get_info_tambahan(self):
+        return f"Panen: {self._masa_panen_hari} hari"
 
     # Override: cetak atribut induk + atribut sendiri (polimorfisme)
     def tampilkan_info(self):

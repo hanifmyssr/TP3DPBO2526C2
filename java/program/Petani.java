@@ -23,6 +23,12 @@ public class Petani {
     public String getAlamat() { return alamat; }
     public int getTahunMulaiBertani() { return tahunMulaiBertani; }
 
+    // Setter untuk setiap atribut
+    public void setIdPetani(String id) { this.idPetani = id; }
+    public void setNama(String n) { this.nama = n; }
+    public void setAlamat(String al) { this.alamat = al; }
+    public void setTahunMulaiBertani(int thn) { this.tahunMulaiBertani = thn; }
+
     // Hitung tahun sekarang - tahunMulaiBertani
     public int getPengalamanTahun() {
         return Year.now().getValue() - tahunMulaiBertani;

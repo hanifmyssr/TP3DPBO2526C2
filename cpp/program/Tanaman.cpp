@@ -30,6 +30,12 @@ public:
     double getLuasTanamM2() { return luasTanamM2; }
     string getTanggalTanam() { return tanggalTanam; }
 
+    // Setter untuk setiap atribut
+    void setIdTanaman(string id) { idTanaman = id; }
+    void setNama(string n) { nama = n; }
+    void setLuasTanamM2(double luas) { luasTanamM2 = luas; }
+    void setTanggalTanam(string tgl) { tanggalTanam = tgl; }
+
     // Concrete (bukan abstract): hitung selisih hari dari tanggalTanam sampai sekarang
     // Dipakai sama persis oleh semua turunan
     int hitungUmurTanamHari() {
@@ -50,6 +56,10 @@ public:
 
     // Abstract: perilaku beda per turunan
     virtual string getKategori() = 0;
+
+    // Abstract: untuk kolom tabel (Jenis + Detail spesifik per turunan)
+    virtual string getJenis() = 0;
+    virtual string getInfoTambahan() = 0;
 
     // Abstract: cetak atribut Tanaman + atribut spesifik turunan
     virtual void tampilkanInfo() = 0;

@@ -8,6 +8,14 @@ from Ladang import Ladang
 import time
 import sys
 
+# Paksa stdout UTF-8 agar glyph gaya screenshot (bullet/tree/box) tidak crash
+# di terminal Windows (cp1252) saat di-pipe
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 # Ladang utama (orkestrator: pegang Petani + 2 array of object)
 ladang = Ladang("LDG001", "Ladang Sukamaju", 10000, "Sukabumi",
                 Petani("T001", "Pak Ahmad", "Jl. Sawah No.1", 2015))
@@ -139,9 +147,9 @@ def tambah_alat():
 def tampilkan_data(judul):
     print(f"\n>>> {judul} <<<")
     ladang.tampilkan_info_ladang()
-    print("\n-- Daftar Tanaman (polimorfisme) --")
+    print()
     ladang.tampilkan_semua_tanaman()
-    print("\n-- Daftar Alat --")
+    print()
     ladang.tampilkan_semua_alat()
 
 
@@ -157,23 +165,7 @@ def tampilkan_menu():
 
 
 def animasi_keluar():
-    print("\nMenutup program", end="")
-    for _ in range(3):
-        time.sleep(0.4)
-        print(".", end="")
-        sys.stdout.flush()
-    print("\n")
-    banner = [
-        "#####  ####   ###      ####   ###  #   # #####",
-        "  #    #   # #   #     #   # #   # ##  # #    ",
-        "  #    ####     #      #   # #   # # # # #### ",
-        "  #    #       #       #   # #   # #  ## #    ",
-        "  #    #      ####     ####   ###  #   # #####",
-    ]
-    for baris in banner:
-        time.sleep(0.15)
-        print(baris)
-    print()
+    print("\nprogram selesai")
 
 
 def main():

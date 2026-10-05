@@ -25,6 +25,19 @@ class Tanaman(ABC):
     def get_tanggal_tanam(self):
         return self._tanggal_tanam
 
+    # Setter untuk setiap atribut
+    def set_id_tanaman(self, id_tanaman):
+        self._id_tanaman = id_tanaman
+
+    def set_nama(self, nama):
+        self._nama = nama
+
+    def set_luas_tanam_m2(self, luas_tanam_m2):
+        self._luas_tanam_m2 = luas_tanam_m2
+
+    def set_tanggal_tanam(self, tanggal_tanam):
+        self._tanggal_tanam = tanggal_tanam
+
     # Concrete (bukan abstract): hitung selisih hari dari tanggalTanam sampai sekarang
     # Dipakai sama persis oleh semua turunan
     def hitung_umur_tanam_hari(self):
@@ -37,6 +50,15 @@ class Tanaman(ABC):
     # Abstract: perilaku beda per turunan
     @abstractmethod
     def get_kategori(self):
+        pass
+
+    # Abstract: untuk kolom tabel (Jenis + Detail spesifik per turunan)
+    @abstractmethod
+    def get_jenis(self):
+        pass
+
+    @abstractmethod
+    def get_info_tambahan(self):
         pass
 
     # Abstract: cetak atribut Tanaman + atribut spesifik turunan
