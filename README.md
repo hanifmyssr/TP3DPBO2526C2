@@ -4,158 +4,14 @@ Saya Muhammad Hanif Muyassar dengan NIM 2510593 mengerjakan Tugas Praktikum 3 da
 
 ## DESAIN DIAGRAM PROGRAM
 
-### Relasi antar class (ringkas)
+![Diagram kelas](DiagramTP3.drawio.png)
 
-```
-               +--------+
-               | Petani |
-               +--------+
-                   ^
-                   | ◆— (1) pemilik
-                   |
-+---------------+ | +------------------+
-| AlatPertanian | | | Tanaman (abstract)|
-+---------------+ | +------------------+
-   ^              |        ^
-   | ◆— (0..*)    |        | hierarchical
-   |              |   +----+----+----+
-   |              |   |         |    |
-   +----------+---+---+--+ +----+---+ +----+-----+
-              | Ladang    | | Pangan | | Sayur  | | Buah   |
-              +-----------+ +--------+ +--------+ +--------+
-              | daftarTanaman: Tanaman* (0..*)               |
-              | daftarAlat: AlatPertanian* (0..*)            |
-              +---------------------------------------------+
-```
-
-- `Ladang` adalah orkestrator: memegang 1 `Petani` + 2 array (`daftarTanaman`, `daftarAlat`).
-- `daftarTanaman` bertipe pointer/reference ke `Tanaman` abstrak, diisi objek `TanamanPangan/Sayur/Buah`
-  sehingga `tampilkanSemuaTanaman()` memakai `getKategori()/getJenis()/getInfoTambahan()`
-  versi override masing-masing (polimorfisme) tanpa `if/else` jenis.
-
-### Diagram class lengkap (atribut + method)
-
-> Setiap class punya **getter + setter untuk setiap atributnya**.
-> Penamaan menyesuaikan bahasa: C++/Java `getX()/setX()`, Python `get_x()/set_x()`.
-> Di bawah ditulis gaya C++/Java agar ringkas.
-
-```
-+========================================+
-| Tanaman (abstract)                     |
-+----------------------------------------+
-| - idTanaman: string                    |
-| - nama: string                         |
-| - luasTanamM2: double                  |
-| - tanggalTanam: string                 |
-+----------------------------------------+
-| + getIdTanaman(): string               |
-| + getNama(): string                    |
-| + getLuasTanamM2(): double             |
-| + getTanggalTanam(): string            |
-| + setIdTanaman(id: string): void       |
-| + setNama(n: string): void             |
-| + setLuasTanamM2(luas: double): void   |
-| + setTanggalTanam(tgl: string): void   |
-| + hitungUmurTanamHari(): int           |
-|   concrete: selisih hari tanggalTanam  |
-|   sampai hari ini                      |
-| + getKategori(): string {abstract}     |
-| + getJenis(): string {abstract}        |
-| + getInfoTambahan(): string {abstract} |
-|   (Air/Panen/Tinggi per turunan)       |
-| + tampilkanInfo(): void {abstract}     |
-+========================================+
-              ^ hierarchical
-      +-------+--------+--------+
-      |                |        |
-+================+ +================+ +================+
-| TanamanPangan  | | TanamanSayur   | | TanamanBuah    |
-+----------------+ +----------------+ +----------------+
-| - jenisPangan  | | - jenisSayur   | | - jenisBuah    |
-| - kebutuhanAir | | - masaPanenHari| | - tinggiPohonM |
-+----------------+ +----------------+ +----------------+
-| + getJenis..() | | + getJenis..() | | + getJenis..() |
-| + getAir/Panen/| | + getMasa..()/ | | + getTinggi()  |
-|   Tinggi()     | |   Tinggi()     | |                |
-| + setJenis..() | | + setJenis..() | | + setJenis..() |
-| + setAir/Panen/| | + setMasa..()/ | | + setTinggi()  |
-|   Tinggi()     | |   Tinggi()     | |                |
-| + getKategori()| | + getKategori()| | + getKategori()|
-|   override     | |   override     | |   override     |
-| + getJenis()/  | | + getJenis()/  | | + getJenis()/  |
-|   getInfoTamb. | |   getInfoTamb. | |   getInfoTamb. |
-|   override     | |   override     | |   override     |
-| + tampilkanInfo| | + tampilkanInfo| | + tampilkanInfo|
-|   override     | |   override     | |   override     |
-+================+ +================+ +================+
-
-+========================================+
-| Petani                                 |
-+----------------------------------------+
-| - idPetani: string                     |
-| - nama: string                         |
-| - alamat: string                       |
-| - tahunMulaiBertani: int               |
-+----------------------------------------+
-| + getIdPetani(): string                |
-| + getNama(): string                    |
-| + getAlamat(): string                  |
-| + getTahunMulaiBertani(): int          |
-| + setIdPetani(id: string): void        |
-| + setNama(n: string): void             |
-| + setAlamat(al: string): void          |
-| + setTahunMulaiBertani(thn: int): void |
-| + getPengalamanTahun(): int            |
-|   tahun sekarang - tahunMulaiBertani   |
-| + tampilkanInfoPetani(): void          |
-+========================================+
-                  ^ ◆— (1) pemilik
-                  |
-+========================================+  +========================================+
-| AlatPertanian                          |  | Ladang (orkestrator)                   |
-+----------------------------------------+  +----------------------------------------+
-| - idAlat: string                       |  | - idLadang: string                     |
-| - namaAlat: string                     |  | - namaLadang: string                   |
-| - kondisi: string                      |  | - luasTotalM2: double                  |
-| - tahunBeli: int                       |  | - lokasi: string                       |
-+----------------------------------------+  | - pemilik: Petani (1) ◆—               |
-| + getIdAlat(): string                  |  | - daftarTanaman: Tanaman* (0..*) ◆—     |
-| + getNamaAlat(): string                |  | - daftarAlat: AlatPertanian* (0..*) ◆—  |
-| + getKondisi(): string                 |  +----------------------------------------+
-| + getTahunBeli(): int                  |  | + getIdLadang()/getNamaLadang()/       |
-| + setIdAlat(id: string): void          |  |   getLuasTotalM2()/getLokasi()/        |
-| + setNamaAlat(n: string): void         |  |   getPemilik()/getDaftarTanaman()/     |
-| + setKondisi(baru: string): void       |  |   getDaftarAlat()                      |
-| + setTahunBeli(thn: int): void        |  | + setIdLadang()/setNamaLadang()/       |
-| + tampilkanInfoAlat(): void            |  |   setLuasTotalM2()/setLokasi()/        |
-+========================================+  |   setPemilik()/setDaftarTanaman()/     |
-            ^ ◆— (0..*) daftarAlat          |   setDaftarAlat()                      |
-            |                               | + idTanamanDipakai(id): bool           |
-            +-------------------------------+ + idAlatDipakai(id): bool              |
-                                            | + tanamTanamanBaru(t: Tanaman*): void  |
-                                            | + tambahAlat(a: AlatPertanian*): void  |
-                                            | + tampilkanSemuaTanaman(): void       |
-                                            |   [ DAFTAR TANAMAN ] + Detail         |
-                                            |   Kategori/Jenis/Detail polimorfik    |
-                                            | + tampilkanSemuaAlat(): void          |
-                                            |   [ DAFTAR ALAT ] + Detail            |
-                                            | + hitungTotalLuasTertanam(): double   |
-                                            | + hitungSisaLuasLadang(): double      |
-                                            | + tampilkanInfoLadang(): void         |
-                                            |   header box + [ INFORMASI ... ] -    |
-                                            +========================================+
-```
-
-Penjelasan method per kotak diagram:
-
-- `getX()` = ambil nilai atribut `X`; `setX(baru)` = ubah nilai atribut `X`. Ada untuk **semua atribut di semua class**.
-- `Tanaman.hitungUmurTanamHari()` = concrete, dipakai sama oleh semua turunan (ditampilkan di baris `Detail`).
-- `Tanaman.getKategori()/getJenis()/getInfoTambahan()/tampilkanInfo()` = abstract, wajib di-override `Pangan/Sayur/Buah`.
-- `Petani.getPengalamanTahun()` = hitung tahun sekarang − tahunMulaiBertani; `tampilkanInfoPetani()` = cetak info petani.
-- `AlatPertanian.tampilkanInfoAlat()` = cetak 1 baris detail alat.
-- `Ladang.tanamTanamanBaru/tambahAlat` = tambah 1 elemen ke array; `setDaftarTanaman/setDaftarAlat` = ganti seluruh array sekaligus.
-- `Ladang.tampilkanSemuaTanaman` = cetak `[ DAFTAR TANAMAN ]`: `N. [Kategori] Nama (ID)` + baris `Detail : ...` (loop + panggil `getKategori/getJenis/getInfoTambahan` polimorfik); `tampilkanSemuaAlat` = cetak `[ DAFTAR ALAT ]` dengan pola sama; `tampilkanInfoLadang` = cetak header box + `[ INFORMASI LADANG ]` + `[ INFORMASI PETANI ]` gaya bullet `-`; `hitungTotalLuasTertanam/hitungSisaLuasLadang` = rekap luas; `idTanamanDipakai/idAlatDipakai` = cek duplikat ID.
-- `Main.tampilkanData()` = panggil `tampilkanInfoLadang()` + `tampilkanSemuaTanaman()` + `tampilkanSemuaAlat()` dengan judul `>>> Data AWAL / SESUDAH ... <<<`; selain itu hanya fungsi bantu validasi + `main()`.
+- **Inheritance (Extends):** `Tanaman` (abstract) → `TanamanPangan`, `TanamanSayur`, `TanamanBuah`.
+  Ketiganya mewarisi atribut `Tanaman` dan meng-override `getKategori()/getJenis()/getInfoTambahan()/tampilkanInfo()`.
+- **Composition:** `Ladang` tersusun atas `Petani` (1, atribut `pemilik`), `Tanaman` (0..*, atribut `daftarTanaman`),
+  dan `AlatPertanian` (0..*, atribut `daftarAlat`).
+- Setiap class punya **getter + setter untuk setiap atributnya**
+  (C++/Java `getX()/setX()`, Python `get_x()/set_x()`). Detail method ada di bagian bawah.
 
 ## PENJELASAN ATRIBUT & METHOD
 
@@ -296,23 +152,23 @@ Berlaku sama untuk C++, Python, dan Java:
 ### C++
 
 ![Sebelum ditambah](cpp/dokumentasi/Before.png)
-![Sesudah ditambah](cpp/dokumentasi/After.png)
-![Sesudah ditambah 2](cpp/dokumentasi/After2.png)
 ![Tambah tanaman](cpp/dokumentasi/AddTanaman.png)
 ![Tambah alat](cpp/dokumentasi/AddAlat.png)
+![Sesudah ditambah](cpp/dokumentasi/After.png)
+![Sesudah ditambah 2](cpp/dokumentasi/After2.png)
 
 ### Python
 
 ![Sebelum ditambah](python/dokumentasi/Before.png)
-![Sesudah ditambah](python/dokumentasi/After.png)
-![Sesudah ditambah 2](python/dokumentasi/After2.png)
 ![Tambah tanaman](python/dokumentasi/AddTanaman.png)
 ![Tambah alat](python/dokumentasi/AddAlat.png)
+![Sesudah ditambah](python/dokumentasi/After.png)
+![Sesudah ditambah 2](python/dokumentasi/After2.png)
 
 ### Java
 
 ![Sebelum ditambah](java/dokumentasi/Before.png)
-![Sesudah ditambah](java/dokumentasi/After.png)
-![Sesudah ditambah 2](java/dokumentasi/After2.png)
 ![Tambah tanaman](java/dokumentasi/AddTanaman.png)
 ![Tambah alat](java/dokumentasi/AddAlat.png)
+![Sesudah ditambah](java/dokumentasi/After.png)
+![Sesudah ditambah 2](java/dokumentasi/After2.png)
